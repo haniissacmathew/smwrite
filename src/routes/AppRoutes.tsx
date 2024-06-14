@@ -1,13 +1,18 @@
-import { createBrowserRouter,RouterProvider } from 'react-router-dom';
+import {  createBrowserRouter     } from 'react-router-dom';
 import Home from '../Home/Home';
+import App from '../App';
+import NewProject from '../Project/new';
+import DefaultLayout from '../Layout/DefaultLayout';
 // import NotFound from './components/NotFound';
-const routes = createBrowserRouter([
- { path: '/', element: <Home /> },  // username password login
+export const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <DefaultLayout />, // Wrap root path with Layout
+    children: [
+      { path: '/', element: <Home /> },
+      { path: '/new-project', element: <NewProject /> },
+      // { path: '/about', element: <ModelTrainer /> },
+      // Add more child routes here
+    ],
+  },
 ]);
-const AppRoutes = () => {
-  return (
-    <RouterProvider router={routes} />
-  );
-}
-
-export default AppRoutes;

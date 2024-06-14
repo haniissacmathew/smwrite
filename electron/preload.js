@@ -1,3 +1,4 @@
+const { contextBridge, ipcRenderer } = require('electron');
 window.addEventListener('DOMContentLoaded', () => {
     const replaceText = (selector, text) => {
       const element = document.getElementById(selector)
@@ -8,3 +9,8 @@ window.addEventListener('DOMContentLoaded', () => {
       replaceText(`${dependency}-version`, process.versions[dependency])
     }
   })
+  contextBridge.exposeInMainWorld('electron', {
+    onEventFromMain: (callback) => ipcRenderer.on('event-from-main', callback),
+    onNavigate: (callback) => ipcRenderer.on('navigate', callback),
+    selectFolder: () => ipcRenderer.invoke('select-folder'),
+  });

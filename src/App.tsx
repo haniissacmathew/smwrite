@@ -2,11 +2,11 @@
 // import viteLogo from '/vite.svg'
 // import Smwrite from './assets/smwrite.svg'
 import './App.css'
-import AppRoutes from './routes/AppRoutes';
+import Header from './Layout/DefaultLayout';
 function App() {
   return (
     <> 
-     <AppRoutes />
+     <Header/>
     </>
   )
 }

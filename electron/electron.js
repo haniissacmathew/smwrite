@@ -1,8 +1,24 @@
 const path = require('path');
-const { app, BrowserWindow,Menu  } = require('electron');
+const { app, BrowserWindow,Menu,ipcMain,dialog  } = require('electron');
  
 const isDev = process.env.IS_DEV == "true" ? true : false;
+let mainWindow;
 const menuTemplate = [
+  {
+    label: 'File',
+    submenu: [
+      { label: 'New Project', click: () => {
+        mainWindow.webContents.send('navigate', '/new-project');
+      } },
+      { label: 'Open Project', click: () => { 
+        mainWindow.webContents.send('navigate', '/open-project');
+       }},
+       { label: 'Home', click: () => { 
+        mainWindow.webContents.send('navigate', '/');
+       }},
+      { type: 'separator' }, // Add a separator line
+    ],
+  },
   {
     label: 'Edit',
     submenu: [
@@ -28,7 +44,7 @@ const menuTemplate = [
   },
 ];
 function createWindow() {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 1024,
     height: 650,
     autoHideMenuBar: false,
@@ -37,7 +53,7 @@ function createWindow() {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: true
     },
   });
  
@@ -68,6 +84,13 @@ app.whenReady().then(() => {
   })
 });
  
+ipcMain.handle('select-folder', async () => {
+  const result = await dialog.showOpenDialog({
+    properties: ['openDirectory'],
+  });
+  return result.filePaths;
+});
+
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
