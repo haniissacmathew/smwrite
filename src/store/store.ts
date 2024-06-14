@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from './counterSlice';
-
+import projectReducer from '../Project/projectSlice';
 // Define the root state type
 export type RootState = ReturnType<typeof store.getState>;
 
@@ -9,6 +8,6 @@ export type AppDispatch = typeof store.dispatch;
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    project: projectReducer
   },
 });

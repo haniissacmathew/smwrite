@@ -13,4 +13,5 @@ window.addEventListener('DOMContentLoaded', () => {
     onEventFromMain: (callback) => ipcRenderer.on('event-from-main', callback),
     onNavigate: (callback) => ipcRenderer.on('navigate', callback),
     selectFolder: () => ipcRenderer.invoke('select-folder'),
+    createFile: (filePath, content) => ipcRenderer.invoke('create-file', filePath, content)
   });

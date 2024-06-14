@@ -4,10 +4,10 @@
     align-items: center;
     padding: 20px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 15px;
     margin: 10px auto;
     width: 400px;
-    box-shadow: 0 8px 32px #e7e2e2;
+    box-shadow: 0 8px 32px #e5e9ed;
   }
   
   .form-group {

@@ -1,6 +1,6 @@
 const path = require('path');
+const fs = require('fs');
 const { app, BrowserWindow,Menu,ipcMain,dialog  } = require('electron');
- 
 const isDev = process.env.IS_DEV == "true" ? true : false;
 let mainWindow;
 const menuTemplate = [
@@ -83,14 +83,22 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 });
- 
+ // Handle select folder
 ipcMain.handle('select-folder', async () => {
   const result = await dialog.showOpenDialog({
     properties: ['openDirectory'],
   });
   return result.filePaths;
 });
-
+// Handle file creation
+ipcMain.handle('create-file', async (event, filePath, content) => {
+  try {
+    fs.writeFileSync(filePath, content);
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
