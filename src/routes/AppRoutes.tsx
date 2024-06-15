@@ -3,6 +3,7 @@ import Home from '../Home/Home';
 import App from '../App';
 import NewProject from '../Project/new';
 import DefaultLayout from '../Layout/DefaultLayout';
+import Editor from '../Editor/Editor';
 // import NotFound from './components/NotFound';
 export const router = createBrowserRouter([
   {
@@ -11,7 +12,7 @@ export const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/new-project', element: <NewProject /> },
-      // { path: '/about', element: <ModelTrainer /> },
+      { path: '/editor', element: <Editor /> },
       // Add more child routes here
     ],
   },
