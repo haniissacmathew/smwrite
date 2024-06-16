@@ -5,14 +5,14 @@ import './Home.css'
 
 function Home() {
   return (
-    <>
+    <div className='home'>
       <div>
         <a href="#" target="_blank">
           <img src={Smwrite} className="logo" alt="Vite logo" />
         </a>
       </div>
       <h1>Welcome to Smwrite!</h1>
-    </>
+    </div>
   )
 }
 

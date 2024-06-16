@@ -3,8 +3,8 @@ import "./new.css"; // Import your CSS file
 import { ipcRenderer } from "electron";
 import Folder from "../assets/icons8-folder.svg";
 function NewProject() {
-  const [filePath, setFilePath] = useState('');
-  const [content, setContent] = useState('');
+  const [filePath, setFilePath] = useState("");
+  const [content, setContent] = useState("");
   const [projectName, setProjectName] = useState("");
   const [selectedPath, setselectedPath] = useState("");
   const [selectedPathError, setselectedPathError] = useState("");
@@ -39,28 +39,28 @@ function NewProject() {
       // setFolderPath(selectedPath[0]);
     }
   };
-//   ipcRenderer.on('last-opened-file', (event, filePath) => {
-//     if (filePath) {
-//         console.log('Last opened file:', filePath);
-//         // Perform operations with the last opened file
-//     }
-// });
+  //   ipcRenderer.on('last-opened-file', (event, filePath) => {
+  //     if (filePath) {
+  //         console.log('Last opened file:', filePath);
+  //         // Perform operations with the last opened file
+  //     }
+  // });
   function validateFilePath() {
     const filePathRegex = /^(.+)\/([^\/]+)$/; // Simple check for common invalid characters
     if (filePathRegex.test(selectedPath)) {
       setselectedPathError("Error");
     } else {
-      console.log('spath=',selectedPath);
-      setFilePath(selectedPath+'/'+projectName+'.smwrite');
-      console.log('fpath=',filePath)
+      console.log("spath=", selectedPath);
+      setFilePath(selectedPath + "/" + projectName + ".smwrite");
+      console.log("fpath=", filePath);
       setselectedPathError("");
     }
   }
   const createFile = async () => {
-    console.log('file path',filePath)
+    console.log("file path", filePath);
     const response = await window.electron.createFile(filePath, content);
     if (response.success) {
-      console.log('File created successfully!');
+      console.log("File created successfully!");
     } else {
       console.log(`Failed to create file: ${response.error}`);
     }
@@ -89,7 +89,12 @@ function NewProject() {
           placeholder=""
           required
         />
-        <img className="folder-icon" src={Folder} onClick={handleSelectFolder} alt="Vite logo" />
+        <img
+          className="folder-icon"
+          src={Folder}
+          onClick={handleSelectFolder}
+          alt="Vite logo"
+        />
       </div>
       {selectedPathError}
       <button type="submit" disabled={projectName == "" || selectedPath == ""}>
