@@ -14,8 +14,6 @@ body {
 }
 .editable-container {
   width: auto;
-}
-.editable {
   height: 100%;
   min-height: 488px;
   max-width: 1200px;
@@ -27,8 +25,11 @@ body {
   outline: none;
   /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
+.editable {
+  outline: none;
+  border: none;
+}
 
 .editable:focus {
-  border-color: #66afe9;
-  box-shadow: 0 0 10px rgba(102, 175, 233, 0.6);
+ 
 }
