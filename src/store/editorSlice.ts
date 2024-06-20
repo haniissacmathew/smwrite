@@ -18,11 +18,23 @@ const EditorSlice = createSlice({
   reducers: {
     loadScreenplay: (state,data:any) => {
       state.openedScreenplay=data.payload;
-      console.log('loadScreenplay triggered',state.openedScreenplay)
+      // console.log('loadScreenplay triggered',state.openedScreenplay)
     },
     updateByIndex: (state,data:any) => {
-      state.openedScreenplay[data.payload.index]=data.payload.content;
-      console.log('update index triggered',state.openedScreenplay)
+      const { index, content } = data.payload;
+
+      // Input validation (optional but recommended)
+      if (index < 0 || index >= state.openedScreenplay.length) {
+        // console.warn('Invalid index for updateOpenedScreenplay');
+        return state;
+      }
+      const newArray = [...state.openedScreenplay]; // Create a copy
+      if(newArray.length>0){
+        // console.log('loadScreenplay triggered',newArray,index)
+        newArray[index].text = content;
+      state.openedScreenplay = newArray; // Assign the new array
+
+      }
     },
     updateFile: (state,data:any) => {
       state.openedScreenplay=data;

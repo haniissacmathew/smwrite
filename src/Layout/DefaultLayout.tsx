@@ -19,9 +19,9 @@ function DefaultLayout() {
           const jsonData:any=parseTaggedString(data.data);
           
           // const string=doTaggedToString(jsonData);
-          console.log(jsonData);
+          // console.log(jsonData);
           if(jsonData.length>0){
-            console.log(jsonData,"empty");	
+            // console.log(jsonData,"empty");	
             dispatch(loadScreenplay(jsonData));
           }
           navigate('/editor')
