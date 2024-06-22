@@ -151,26 +151,22 @@ function Main(props: any) {
         cursorPosition.selection.node &&
         cursorPosition.selection.offset
       ) {
-        let nodeIndex=Number(cursorPosition.selection.node);
-        let nodeOffset=Number(cursorPosition.selection.offset);
-        
-        if(newItem){
-          nodeIndex=nodeIndex+1;
-          nodeOffset=0;
+        let nodeIndex = Number(cursorPosition.selection.node);
+        let nodeOffset = Number(cursorPosition.selection.offset);
+
+        if (newItem) {
+          nodeIndex = nodeIndex + 1;
+          nodeOffset = 0;
         }
-        console.log(nodeIndex, nodeOffset,editableRef.current
-          )
+        console.log(nodeIndex, nodeOffset, editableRef.current);
         if (
           editableRef.current.childNodes[nodeIndex] &&
-          editableRef.current.childNodes[nodeIndex]
-            .childNodes.length > 0
+          editableRef.current.childNodes[nodeIndex].childNodes.length > 0
         ) {
           console.log(editableRef.current.childNodes[nodeIndex]);
           console.log(editableRef.current.childNodes[nodeIndex].childNodes[0]);
           range.setStart(
-            editableRef.current.childNodes[
-              nodeIndex
-            ].childNodes[0],
+            editableRef.current.childNodes[nodeIndex].childNodes[0],
             nodeOffset
           );
           range.collapse(true);
@@ -182,8 +178,11 @@ function Main(props: any) {
     }
   };
   const handleKeyDown = (event: any) => {
-    if (event.keyCode === 13) {
-      event.preventDefault();
+    event.preventDefault();
+    if ((event.ctrlKey || event.metaKey) && event.keyCode === 13) {
+      // Control+Enter is pressed, perform your desired action
+      console.log("Control+Enter detected!");
+    } else if (event.keyCode === 13) {
       // Your custom logic for handling Enter key press (e.g., submit form, trigger action)
       // console.log("Enter key pressed:", event); // Example logging the current content
       const selection: any = window.getSelection();
@@ -200,8 +199,8 @@ function Main(props: any) {
   const handleMenuClick = (item: any) => {
     const body: any = {
       type: item.value,
-      index: Number(cursorPosition.selection.line)+1,
-      content: '&nbsp;',
+      index: Number(cursorPosition.selection.line) + 1,
+      content: "&nbsp;",
     };
     dispatch(insertElement(body));
     setNewItem(true);

@@ -50,6 +50,21 @@ const EditorSlice = createSlice({
         state.openedScreenplay = newArray; // Assign the new array
       }
     },
+    nextLine: (state, data: any) => { // Need to develop
+      const { index, content } = data.payload;
+
+      // Input validation (optional but recommended)
+      if (index < 0 || index >= state.openedScreenplay.length) {
+        // console.warn('Invalid index for updateOpenedScreenplay');
+        return state;
+      }
+      const newArray = [...state.openedScreenplay]; // Create a copy
+      if (newArray.length > 0) {
+        // console.log('loadScreenplay triggered',newArray,index)
+        newArray[index].text = newArray[index].text+'<br/>';
+        state.openedScreenplay = newArray; // Assign the new array
+      }
+    },
     updateFile: (state, data: any) => {
       state.openedScreenplay = data;
     },
