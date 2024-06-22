@@ -24,6 +24,13 @@ const menuTemplate = [
         },
       },
       {
+        label: "Save Project",
+        click: () => {
+          saveFile();
+          // mainWindow.webContents.send("navigate", "/open-project");
+        },
+      },
+      {
         label: "Home",
         click: () => {
           mainWindow.webContents.send("navigate", "/");
@@ -122,6 +129,9 @@ app.on("window-all-closed", () => {
     app.quit();
   }
 });
+function saveFile(){
+  console.log('saveFile');
+}
 function openFile() {
   dialog
     .showOpenDialog(mainWindow, {
