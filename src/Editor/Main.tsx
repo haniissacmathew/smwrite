@@ -22,7 +22,7 @@ function Main(props: any) {
   const menuOptions = [
     {
       label: "Scene heading",
-      value: "_scene_",
+      value: "scene",
     },
     {
       label: "Description",
@@ -83,7 +83,7 @@ function Main(props: any) {
           const changedSpan = mutation.target; // Get the modified span
           const changedSpanElement = changedSpan.parentElement;
           // console.log(changedSpanElement);
-          if (changedSpanElement.nodeName === "SPAN") {
+          if (changedSpanElement.nodeName === "DIV") {
             // Check for "SPAN" tag
             const body: any = {
               // index: changedSpanElement.dataset.id,
@@ -94,7 +94,7 @@ function Main(props: any) {
             saveCursorPosition();
             // ... rest of your code
           } else {
-            console.log(`Changed span is not a div span.`);
+            console.log(`Changed div is not a div.`);
           }
           // Handle the change here
         }
@@ -153,11 +153,13 @@ function Main(props: any) {
       ) {
         let nodeIndex=Number(cursorPosition.selection.node);
         let nodeOffset=Number(cursorPosition.selection.offset);
-        // console.log(nodeIndex, nodeOffset)
+        
         if(newItem){
-          nodeIndex=nodeIndex+2;
+          nodeIndex=nodeIndex+1;
           nodeOffset=0;
         }
+        console.log(nodeIndex, nodeOffset,editableRef.current
+          )
         if (
           editableRef.current.childNodes[nodeIndex] &&
           editableRef.current.childNodes[nodeIndex]
