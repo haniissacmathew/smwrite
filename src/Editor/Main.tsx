@@ -158,13 +158,13 @@ function Main(props: any) {
           nodeIndex = nodeIndex + 1;
           nodeOffset = 0;
         }
-        console.log(nodeIndex, nodeOffset, editableRef.current);
+        // console.log(nodeIndex, nodeOffset, editableRef.current);
         if (
           editableRef.current.childNodes[nodeIndex] &&
           editableRef.current.childNodes[nodeIndex].childNodes.length > 0
         ) {
-          console.log(editableRef.current.childNodes[nodeIndex]);
-          console.log(editableRef.current.childNodes[nodeIndex].childNodes[0]);
+          // console.log(editableRef.current.childNodes[nodeIndex]);
+          // console.log(editableRef.current.childNodes[nodeIndex].childNodes[0]);
           range.setStart(
             editableRef.current.childNodes[nodeIndex].childNodes[0],
             nodeOffset
@@ -178,11 +178,13 @@ function Main(props: any) {
     }
   };
   const handleKeyDown = (event: any) => {
-    event.preventDefault();
+    
     if ((event.ctrlKey || event.metaKey) && event.keyCode === 13) {
+      event.preventDefault();
       // Control+Enter is pressed, perform your desired action
       console.log("Control+Enter detected!");
     } else if (event.keyCode === 13) {
+      event.preventDefault();
       // Your custom logic for handling Enter key press (e.g., submit form, trigger action)
       // console.log("Enter key pressed:", event); // Example logging the current content
       const selection: any = window.getSelection();

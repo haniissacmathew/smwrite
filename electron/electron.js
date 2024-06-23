@@ -12,7 +12,7 @@ const menuTemplate = [
       {
         label: "New Project",
         click: () => {
-          console.log('naavigate');
+          console.log("naavigate");
           mainWindow.webContents.send("navigate", "/new-project");
         },
       },
@@ -124,13 +124,26 @@ ipcMain.handle("create-file", async (event, filePath, content) => {
     return { success: false, error: error.message };
   }
 });
+ipcMain.handle("save-file", async (event, content) => {
+  const filePath = store.get("lastOpenedFile");
+  console.log('lastOpenedFile',filePath,content);
+  if (filePath) {
+    try {
+      fs.writeFileSync(filePath, content);
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  }
+});
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
 });
-function saveFile(){
-  console.log('saveFile');
+function saveFile() {
+  console.log("saveFile");
+  mainWindow.webContents.send("save-file-triggered");
 }
 function openFile() {
   dialog
@@ -153,12 +166,15 @@ function openFile() {
 }
 app.on("open-file", openFile);
 function readFileContent(filePath) {
-  fs.readFile(filePath, 'utf-8', (err, data) => {
-      if (err) {
-          console.log('Error reading file:', err);
-          return;
-      }
-      console.log('File content:', data);
-      mainWindow.webContents.send('file-content', {data:data,filePath:filePath});
+  fs.readFile(filePath, "utf-8", (err, data) => {
+    if (err) {
+      console.log("Error reading file:", err);
+      return;
+    }
+    console.log("File content:", data);
+    mainWindow.webContents.send("file-content", {
+      data: data,
+      filePath: filePath,
+    });
   });
 }

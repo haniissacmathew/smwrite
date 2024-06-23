@@ -16,6 +16,7 @@ const { contextBridge, ipcRenderer } = require('electron');
     // onNavigate: (message) => ipcRenderer.send('navigate', message),
     selectFolder: () => ipcRenderer.invoke('select-folder'),
     createFile: (filePath, content) => ipcRenderer.invoke('create-file', filePath, content),
+    saveFile: ( content) => ipcRenderer.invoke('save-file', content),
     ipcRenderer: {
       send: (channel, data) => ipcRenderer.send(channel, data),
       on: (channel, func) => ipcRenderer.on(channel, (event, ...args) => func(event, ...args)),

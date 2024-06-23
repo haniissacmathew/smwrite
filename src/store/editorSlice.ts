@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface EditorState {
   openedScreenplay: ScreenPlayLine[];
+  screenPlayString:string;
 }
 interface ScreenPlayLine {
   text: string;
@@ -9,6 +10,7 @@ interface ScreenPlayLine {
 }
 const initialState: EditorState = {
   openedScreenplay: [], // {type: '_scene_', text:'Scene 1' }
+  screenPlayString: "",
 };
 
 const EditorSlice = createSlice({
@@ -17,6 +19,10 @@ const EditorSlice = createSlice({
   reducers: {
     loadScreenplay: (state, data: any) => {
       state.openedScreenplay = data.payload;
+      // console.log('loadScreenplay triggered',state.openedScreenplay)
+    },
+    saveScreenplay: (state, data: any) => {
+      state.screenPlayString = data.payload;
       // console.log('loadScreenplay triggered',state.openedScreenplay)
     },
     updateByIndex: (state, data: any) => {
@@ -28,8 +34,8 @@ const EditorSlice = createSlice({
         return state;
       }
       const newArray = [...state.openedScreenplay]; // Create a copy
-      if (newArray.length > 0) {
-        // console.log('loadScreenplay triggered',newArray,index)
+      if (newArray.length > 0 && newArray[index]) {
+        console.log('loadScreenplay triggered',newArray,index)
         newArray[index].text = content;
         state.openedScreenplay = newArray; // Assign the new array
       }
@@ -76,3 +82,5 @@ export const { loadScreenplay, updateFile, updateByIndex,insertElement } =
   EditorSlice.actions;
 export const selectScreenplay = (state: EditorState) =>
   state.editor.openedScreenplay;
+export const selectScreenplayString = (state: EditorState) =>
+  state.editor.screenPlayString;

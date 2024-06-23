@@ -1,10 +1,13 @@
+
+import { useDispatch } from 'react-redux';
+import {saveScreenplay} from '../store/editorSlice';
 export function parseTaggedString(str: string): object {
   const elements = str.split("_END_");
   let result = [];
   for (let i = 0; i < elements.length; i++) {
     const context = elements[i].split("_SPLIT_");
-    if (context) {
-      result.push({type: context[0], text: context[1] });
+    if (context && context[1] != undefined) {
+      result.push({type: context[0].replace(/\n/g, ''), text: context[1].replace(/\n/g, '') });
     }
   }
   return result;
@@ -17,12 +20,15 @@ export function doTaggedToString(
 
   let result = "";
   for (const element of data) {
+    // console.log("screenplay",element);
     // Concatenate each element with the appropriate delimiters
     if (element.text != undefined) {
-      result += element.type + "_SPLIT_" + element.text + "_END_";
+      result += '\n'+element.type + " _SPLIT_ " + element.text + " _END_ ";
     }
   }
-
   // Remove the trailing delimiter from the reconstructed string
+  // console.log(result)
+  return result;
+  // dispatch(saveScreenplay(result));
   return result.slice(0, -5);
 }
