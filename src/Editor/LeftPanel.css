@@ -1,0 +1,48 @@
+.tabs {
+  display: flex;
+  font-family: Arial, sans-serif;
+  height: 100vh; /* Ensure the full height is used */
+  border: 1px solid #ccc;
+}
+
+.tab-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-right: 10px;
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 0;
+  align-self: flex-start; /* Ensure it sticks to the top of the parent container */
+  margin-left: 5px;
+  margin-top: 5px;
+  width: auto;
+}
+
+.tab-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.tab-buttons button:hover {
+  background-color: #ddd;
+}
+
+.tab-buttons button.active {
+  background-color: #ccc;
+  font-weight: bold;
+}
+
+.tab-content {
+  padding: 20px;
+  border-left: 1px solid #ccc;
+  flex-grow: 1;
+  overflow-y: auto; /* Ensure the content area can scroll */
+}

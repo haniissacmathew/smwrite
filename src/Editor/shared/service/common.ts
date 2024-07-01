@@ -10,6 +10,17 @@ export function processJson(json: any) {
   }
   return html;
 }
-
+export function processSceneheadings(json: any) {
+  let sceneList:any = [];
+  if (json && json.length != 0) {
+    json.forEach((item: any) => { console.log(item)
+      if (item.type.trim() === "scene") { 
+        let text=item.text.replace("&nbsp;", "");
+        sceneList.push({text:text,type:item.type});
+      }
+    });
+  }
+  return sceneList;
+}
 
 

@@ -118,6 +118,7 @@ ipcMain.handle("select-folder", async () => {
 // Handle file creation
 ipcMain.handle("create-file", async (event, filePath, content) => {
   try {
+    console.log("create file", filePath, content);
     fs.writeFileSync(filePath, content);
     return { success: true };
   } catch (error) {

@@ -6,12 +6,11 @@ import { FiSave } from "react-icons/fi";
 function Editor() {
   return (
     <div className="container">
-      <div className="action-container"><FiSave /></div>
       <div className="row">
-        <div className="col-2">
+        <div className="col-4">
         <LeftPanel />
         </div>
-        <div className="col-10">
+        <div className="col-8">
         <Main />
         </div>
       </div>

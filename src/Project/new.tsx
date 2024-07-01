@@ -4,13 +4,14 @@ import { ipcRenderer } from "electron";
 import Folder from "../assets/icons8-folder.svg";
 function NewProject() {
   const [filePath, setFilePath] = useState("");
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState("title _SPLIT_    _END_ ");
   const [projectName, setProjectName] = useState("");
   const [selectedPath, setselectedPath] = useState("");
   const [selectedPathError, setselectedPathError] = useState("");
 
   const handleProjectNameChange = (event: any) => {
     setProjectName(event.target.value);
+    validateFilePath();
   };
 
   const handleLocationChange = (event: any) => {
@@ -32,8 +33,8 @@ function NewProject() {
 
   const handleSelectFolder = async () => {
     const selectedPath = await window.electron.selectFolder();
+    console.log(selectedPath);
     if (selectedPath.length > 0) {
-      console.log(selectedPath);
       setselectedPath(selectedPath[0]);
       validateFilePath();
       // setFolderPath(selectedPath[0]);
@@ -50,10 +51,11 @@ function NewProject() {
     if (filePathRegex.test(selectedPath)) {
       setselectedPathError("Error");
     } else {
-      console.log("spath=", selectedPath);
-      setFilePath(selectedPath + "/" + projectName + ".smwrite");
-      console.log("fpath=", filePath);
-      setselectedPathError("");
+      if(projectName!=""){
+        setFilePath(selectedPath + "\\" + projectName + ".smwrite");
+        setselectedPathError("");
+      }
+
     }
   }
   const createFile = async () => {
