@@ -7,6 +7,10 @@ import {
 } from "../store/editorSlice";
 import { processJson } from "./shared/service/common";
 import { useEffect, useRef, useState } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import { FiPrinter } from "react-icons/fi";
+
 function Main(props: any) {
   const dispatch = useDispatch();
   const editableRef = useRef(null);
@@ -41,6 +45,19 @@ function Main(props: any) {
       value: "transition",
     },
   ];
+  const exportToPdf = () => {
+    const input = editableRef.current;
+    if (input) {
+      html2canvas(input, { scale: 3 }).then((canvas) => {
+        const imgData = canvas.toDataURL("image/jpeg");
+        const pdf = new jsPDF();
+        const imgWidth = 210; // PDF page width (in mm)
+        const imgHeight = (canvas.height * imgWidth) / canvas.width; // Calculate PDF page height
+        pdf.addImage(imgData, "jpeg", 0, 0, imgWidth, imgHeight);
+        pdf.save("download.pdf"); // Download the PDF
+      });
+    }
+  };
   useEffect(() => {
     setHtml(processJson(screenplay));
   }, [screenplay]);
@@ -74,6 +91,11 @@ function Main(props: any) {
   }, [popMenuRef]);
   useEffect(() => {
     const editableNode = editableRef.current;
+    if (window.electron) {
+      window.electron.ipcRenderer.on("export-project", (event: any, data: any) => {
+          exportToPdf();
+      });
+    }
     const handleMutations = (mutationsList: any) => {
       for (let mutation of mutationsList) {
         if (
@@ -178,7 +200,6 @@ function Main(props: any) {
     }
   };
   const handleKeyDown = (event: any) => {
-    
     if ((event.ctrlKey || event.metaKey) && event.keyCode === 13) {
       event.preventDefault();
       // Control+Enter is pressed, perform your desired action
@@ -209,41 +230,43 @@ function Main(props: any) {
     setShowTooltip(false);
   };
   return (
-    <div className="editable-container">
-      <div
-        ref={editableRef}
-        contentEditable="true"
-        className="editable"
-        suppressContentEditableWarning={true}
-        onKeyDown={handleKeyDown}
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
-      {showTooltip && (
+    <>
+      <div className="editable-container">
         <div
-          ref={popMenuRef}
-          className="tooltip"
-          style={{
-            width: "auto",
-            position: "absolute",
-            top: tooltipPosition.top + 20, // Adjust tooltip position above the cursor
-            left: tooltipPosition.left,
-            // backgroundColor: "#4c3585",
-            color: "#fff",
-            // padding: "5px",
-            borderRadius: "3px",
-            boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-          }}
-        >
-          <div className="vertical-menu">
-            {menuOptions.map((item) => (
-              <a key={item.value} onClick={() => handleMenuClick(item)}>
-                {item.label}
-              </a>
-            ))}
+          ref={editableRef}
+          contentEditable="true"
+          className="editable"
+          suppressContentEditableWarning={true}
+          onKeyDown={handleKeyDown}
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+        {showTooltip && (
+          <div
+            ref={popMenuRef}
+            className="tooltip"
+            style={{
+              width: "auto",
+              position: "absolute",
+              top: tooltipPosition.top + 20, // Adjust tooltip position above the cursor
+              left: tooltipPosition.left,
+              // backgroundColor: "#4c3585",
+              color: "#fff",
+              // padding: "5px",
+              borderRadius: "3px",
+              boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+            }}
+          >
+            <div className="vertical-menu">
+              {menuOptions.map((item) => (
+                <a key={item.value} onClick={() => handleMenuClick(item)}>
+                  {item.label}
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 }
 

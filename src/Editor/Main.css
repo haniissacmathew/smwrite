@@ -4,7 +4,6 @@
   box-sizing: border-box;
   width: 100%;
 }
-/* https://www.svgrepo.com/collection/arcticons-thin-line-icons/2 */
 html,
 body {
   height: 100%;
@@ -19,7 +18,6 @@ body {
   max-width: 1200px;
   max-height: 800px;
   border-top: 1px solid #ccc;
-  padding: 20px;
   background-color: white;
   overflow: auto;
   outline: none;
@@ -29,6 +27,7 @@ body {
   outline: none;
   border: none;
   height: 495px;
+  padding: 20px;
 }
 
 .editable:focus {
@@ -61,3 +60,9 @@ body {
   text-align: right;
 }
 
+.top-bar{
+
+}
+.top-bar .icon{
+  text-align: right;
+}

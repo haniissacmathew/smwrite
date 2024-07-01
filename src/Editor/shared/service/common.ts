@@ -23,4 +23,15 @@ export function processSceneheadings(json: any) {
   return sceneList;
 }
 
-
+export function processCharacter(json: any) {
+  let charList:any = [];
+  if (json && json.length != 0) {
+    json.forEach((item: any) => { console.log(item)
+      if (item.type.trim() === "character") { 
+        let text=item.text.replace("&nbsp;", "");
+        charList.push({text:text,type:item.type});
+      }
+    });
+  }
+  return charList;
+}

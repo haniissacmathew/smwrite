@@ -20,14 +20,18 @@ const menuTemplate = [
         label: "Open Project",
         click: () => {
           openFile();
-          // mainWindow.webContents.send("navigate", "/open-project");
         },
       },
       {
         label: "Save Project",
         click: () => {
           saveFile();
-          // mainWindow.webContents.send("navigate", "/open-project");
+        },
+      },
+      {
+        label: "Export to PDF",
+        click: () => {
+          exportProject();
         },
       },
       {
@@ -164,6 +168,9 @@ function openFile() {
     .catch((err) => {
       console.log(err);
     });
+}
+function exportProject() {
+  mainWindow.webContents.send("export-project");
 }
 app.on("open-file", openFile);
 function readFileContent(filePath) {

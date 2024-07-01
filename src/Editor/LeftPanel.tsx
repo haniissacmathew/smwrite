@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import {
   selectScreenplay,
 } from "../store/editorSlice";
-import { processSceneheadings } from "./shared/service/common";
+import { processSceneheadings,processCharacter } from "./shared/service/common";
 import "./LeftPanel.css";
 import { FiList } from "react-icons/fi";
 import { FiUser } from "react-icons/fi";
@@ -11,6 +11,7 @@ import { FiGrid } from "react-icons/fi";
 
 function LeftPanel() {
   const [scenes, setScenes] = useState([]);
+  const [characters, setCharacters] = useState([]);
   const screenplay = useSelector(selectScreenplay);
   const [activeTab, setActiveTab] = useState('Tab1');
 
@@ -19,6 +20,7 @@ function LeftPanel() {
   };
   useEffect(() => {
     setScenes(processSceneheadings(screenplay));
+    setCharacters(processCharacter(screenplay));
   }, [screenplay]);
   return (
     <div className="tabs">
@@ -47,9 +49,13 @@ function LeftPanel() {
         {scenes.map((scene: any) => (
           <p key={scene.text}>{scene.text}</p>
         ))}
+        </div>} 
+      {activeTab === 'Tab2' && <div>
+        {characters.map((char: any) => (
+          <p key={char.text}>{char.text}</p>
+        ))}
         </div>}
-      {activeTab === 'Tab2' && <div>Content for Tab 2</div>}
-      {activeTab === 'Tab3' && <div>Content for Tab 3</div>}
+      {activeTab === 'Tab3' && <div>Update Soon...!</div>}
     </div>
   </div>
   );
