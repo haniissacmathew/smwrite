@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { FiPrinter } from "react-icons/fi";
-
+import {doTaggedToString} from '../shared/service/screenplayEngine';
 function Main(props: any) {
   const dispatch = useDispatch();
   const editableRef = useRef(null);
@@ -93,7 +93,13 @@ function Main(props: any) {
     const editableNode = editableRef.current;
     if (window.electron) {
       window.electron.ipcRenderer.on("export-project", (event: any, data: any) => {
+        console.log('pdf trigger');
           exportToPdf();
+      });
+      window.electron.ipcRenderer.on("save-file-triggered", (event: any, data: any) => {
+        let stringData=doTaggedToString(screenplay);
+        console.log('stringData',stringData);
+        saveFile(stringData);
       });
     }
     const handleMutations = (mutationsList: any) => {
@@ -135,12 +141,26 @@ function Main(props: any) {
 
     // Cleanup the observer on component unmount
     return () => {
+      window.electron.ipcRenderer.removeAllListeners("export-project");
+      window.electron.ipcRenderer.removeAllListeners("save-file-triggered");
       if (observer) {
         observer.disconnect();
       }
+
     };
   });
-
+  const saveFile = async (stringData:any) => {
+    console.log('get stirng from store and send to save file',screenplay);
+    
+    if( stringData!=""){
+      const response = await window.electron.saveFile( stringData);
+      if (response.success) {
+        console.log("File saved successfully!");
+      } else {
+        console.log(`Failed to save file: ${response.error}`);
+      }
+    }
+  }
   const saveCursorPosition = () => {
     if (editableRef.current) {
       const selection: any = window.getSelection();
@@ -200,7 +220,13 @@ function Main(props: any) {
     }
   };
   const handleKeyDown = (event: any) => {
-    if ((event.ctrlKey || event.metaKey) && event.keyCode === 13) {
+    if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+        console.log('save file Hotkey pressed');
+        let stringData=doTaggedToString(screenplay);
+        console.log('stringData',stringData);
+        saveFile(stringData);
+    }
+    else if ((event.ctrlKey || event.metaKey) && event.keyCode === 13) {
       event.preventDefault();
       // Control+Enter is pressed, perform your desired action
       console.log("Control+Enter detected!");

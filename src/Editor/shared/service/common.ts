@@ -13,7 +13,7 @@ export function processJson(json: any) {
 export function processSceneheadings(json: any) {
   let sceneList:any = [];
   if (json && json.length != 0) {
-    json.forEach((item: any) => { console.log(item)
+    json.forEach((item: any) => { 
       if (item.type.trim() === "scene") { 
         let text=item.text.replace("&nbsp;", "");
         sceneList.push({text:text,type:item.type});
@@ -26,7 +26,7 @@ export function processSceneheadings(json: any) {
 export function processCharacter(json: any) {
   let charList:any = [];
   if (json && json.length != 0) {
-    json.forEach((item: any) => { console.log(item)
+    json.forEach((item: any) => {
       if (item.type.trim() === "character") { 
         let text=item.text.replace("&nbsp;", "");
         charList.push({text:text,type:item.type});

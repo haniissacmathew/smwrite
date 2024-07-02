@@ -35,7 +35,7 @@ const EditorSlice = createSlice({
       }
       const newArray = [...state.openedScreenplay]; // Create a copy
       if (newArray.length > 0 && newArray[index]) {
-        console.log('loadScreenplay triggered',newArray,index)
+        // console.log('loadScreenplay triggered',newArray,index)
         newArray[index].text = content;
         state.openedScreenplay = newArray; // Assign the new array
       }

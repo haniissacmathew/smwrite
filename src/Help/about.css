@@ -1,0 +1,17 @@
+.about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* This will center the content vertically in the viewport */
+    text-align: center; /* This will center the text inside the div */
+    padding: 20px;
+  }
+  
+  .about-logo {
+    max-width: 100px; /* Adjust the image size if necessary */
+    height: auto;
+  }
+  .social-icons{
+    display: flex;
+  }

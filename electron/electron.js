@@ -23,7 +23,7 @@ const menuTemplate = [
         },
       },
       {
-        label: "Save Project",
+        label: "Save Project Ctrl+S",
         click: () => {
           saveFile();
         },
@@ -57,6 +57,7 @@ const menuTemplate = [
   {
     label: "View",
     submenu: [
+      { label: "About", click: () => { mainWindow.webContents.send("navigate", "/about");} },
       {
         label: "Toggle Fullscreen",
         click: () => {
@@ -66,6 +67,12 @@ const menuTemplate = [
       },
     ],
   },
+  {
+    label: "Help",
+    submenu: [
+      { label: "About", click: () => { mainWindow.webContents.send("navigate", "/about");} },
+    ]
+  }
 ];
 function createWindow() {
   mainWindow = new BrowserWindow({

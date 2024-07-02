@@ -20,7 +20,6 @@ export function doTaggedToString(
 
   let result = "";
   for (const element of data) {
-    // console.log("screenplay",element);
     // Concatenate each element with the appropriate delimiters
     if (element.text != undefined) {
       result += '\n'+element.type + " _SPLIT_ " + element.text + " _END_ ";

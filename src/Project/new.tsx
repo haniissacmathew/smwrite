@@ -23,8 +23,6 @@ function NewProject() {
     event.preventDefault(); // Prevent default form submission behavior
 
     // Perform form validation or data processing here
-    console.log("Project Name:", projectName);
-    console.log("Selected File:", selectedPath);
     createFile();
     // Reset the form after successful submission (optional)
     setProjectName("");
@@ -33,7 +31,6 @@ function NewProject() {
 
   const handleSelectFolder = async () => {
     const selectedPath = await window.electron.selectFolder();
-    console.log(selectedPath);
     if (selectedPath.length > 0) {
       setselectedPath(selectedPath[0]);
       validateFilePath();
@@ -59,7 +56,6 @@ function NewProject() {
     }
   }
   const createFile = async () => {
-    console.log("file path", filePath);
     const response = await window.electron.createFile(filePath, content);
     if (response.success) {
       console.log("File created successfully!");
