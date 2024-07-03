@@ -2,6 +2,8 @@
   "name": "smwrite",
   "private": true,
   "version": "0.0.0",
+  "author": "Hani Issac Mathew",
+  "description": "A screenplay editor",
   "main": "electron/electron.js",
   "scripts": {
     "dev": "vite",
@@ -12,12 +14,16 @@
     "electron:dev": "concurrently -k \"cross-env BROWSER=none npm run dev\" \"npm run electron\"",
     "electron:builder": "electron-builder",
     "build:for:electron": "tsc --noEmit && cross-env ELECTRON=true vite build",
-    "app:build": "npm run build:for:electron && npm run electron:builder"
+    "app:build": "npm run build:for:electron && npm run electron:builder",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.5",
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
+    "electron-squirrel-startup": "^1.0.1",
     "electron-store": "^8.1.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
@@ -29,12 +35,21 @@
     "wait-on": "^7.2.0"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^7.4.0",
+    "@electron-forge/maker-deb": "^7.4.0",
+    "@electron-forge/maker-rpm": "^7.4.0",
+    "@electron-forge/maker-squirrel": "^7.4.0",
+    "@electron-forge/maker-zip": "^7.4.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
+    "@electron-forge/plugin-fuses": "^7.4.0",
+    "@electron/fuses": "^1.8.0",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "electron": "^31.0.0",
+    "electron-builder": "^24.13.3",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",

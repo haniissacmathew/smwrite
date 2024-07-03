@@ -57,7 +57,7 @@ const EditorSlice = createSlice({
       }
     },
     nextLine: (state, data: any) => { // Need to develop
-      const { index, content } = data.payload;
+      const { index } = data.payload;
 
       // Input validation (optional but recommended)
       if (index < 0 || index >= state.openedScreenplay.length) {
@@ -80,7 +80,7 @@ const EditorSlice = createSlice({
 export default EditorSlice.reducer;
 export const { loadScreenplay, updateFile, updateByIndex,insertElement } =
   EditorSlice.actions;
-export const selectScreenplay = (state: EditorState) =>
+export const selectScreenplay = (state: any) =>
   state.editor.openedScreenplay;
-export const selectScreenplayString = (state: EditorState) =>
+export const selectScreenplayString = (state: any) =>
   state.editor.screenPlayString;

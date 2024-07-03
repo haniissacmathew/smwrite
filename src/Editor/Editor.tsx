@@ -1,7 +1,7 @@
 import Main from "./Main";
 import LeftPanel from "./LeftPanel";
 import "./Editor.css";
-import { FiSave } from "react-icons/fi";
+// import { FiSave } from "react-icons/fi";
 
 function Editor() {
   return (

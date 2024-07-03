@@ -1,6 +1,5 @@
 
-import { useDispatch } from 'react-redux';
-import {saveScreenplay} from '../store/editorSlice';
+
 export function parseTaggedString(str: string): object {
   const elements = str.split("_END_");
   let result = [];

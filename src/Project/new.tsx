@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import "./new.css"; // Import your CSS file
-import { ipcRenderer } from "electron";
 import Folder from "../assets/icons8-folder.svg";
 function NewProject() {
   const [filePath, setFilePath] = useState("");
-  const [content, setContent] = useState("title _SPLIT_    _END_ ");
+  const [content] = useState("title _SPLIT_    _END_ ");
   const [projectName, setProjectName] = useState("");
   const [selectedPath, setselectedPath] = useState("");
   const [selectedPathError, setselectedPathError] = useState("");
@@ -56,7 +55,7 @@ function NewProject() {
     }
   }
   const createFile = async () => {
-    const response = await window.electron.createFile(filePath, content);
+    const response:any = await window.electron.createFile(filePath, content);
     if (response.success) {
       console.log("File created successfully!");
     } else {

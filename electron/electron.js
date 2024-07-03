@@ -108,9 +108,9 @@ function createWindow() {
   });
   mainWindow.setMenu(mainMenu);
   // Open the DevTools.
-  if (isDev) {
+  // if (isDev) {
     mainWindow.webContents.openDevTools();
-  }
+  // }
 }
 
 app.whenReady().then(() => {

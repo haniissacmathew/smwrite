@@ -9,12 +9,12 @@ import { processJson } from "./shared/service/common";
 import { useEffect, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import { FiPrinter } from "react-icons/fi";
+// import { FiPrinter } from "react-icons/fi";
 import {doTaggedToString} from '../shared/service/screenplayEngine';
 function Main(props: any) {
   const dispatch = useDispatch();
-  const editableRef = useRef(null);
-  const popMenuRef = useRef(null);
+  const editableRef = useRef<HTMLDivElement>(null);
+  const popMenuRef = useRef<HTMLDivElement>(null);
   const [html, setHtml] = useState("<p>Editable content here</p>");
   const screenplay = useSelector(selectScreenplay);
   const [cursorPosition, setCursorPosition] = useState(
@@ -91,12 +91,12 @@ function Main(props: any) {
   }, [popMenuRef]);
   useEffect(() => {
     const editableNode = editableRef.current;
-    if (window.electron) {
-      window.electron.ipcRenderer.on("export-project", (event: any, data: any) => {
+    if (window && window.electron) {
+      window.electron.ipcRenderer.on("export-project", () => {
         console.log('pdf trigger');
           exportToPdf();
       });
-      window.electron.ipcRenderer.on("save-file-triggered", (event: any, data: any) => {
+      window.electron.ipcRenderer.on("save-file-triggered", () => {
         let stringData=doTaggedToString(screenplay);
         console.log('stringData',stringData);
         saveFile(stringData);
@@ -202,6 +202,8 @@ function Main(props: any) {
         }
         // console.log(nodeIndex, nodeOffset, editableRef.current);
         if (
+          editableRef &&
+          editableRef.current &&
           editableRef.current.childNodes[nodeIndex] &&
           editableRef.current.childNodes[nodeIndex].childNodes.length > 0
         ) {

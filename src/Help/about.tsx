@@ -5,7 +5,7 @@ import { FiInstagram } from "react-icons/fi";
 import { FiLinkedin } from "react-icons/fi";
 import { FiTwitter } from "react-icons/fi";
 
-const About = (props: any) => {
+const About = () => {
   return (
     <div className="about">
         <h2>About to Smwrite!</h2>

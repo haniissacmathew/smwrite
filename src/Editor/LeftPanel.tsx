@@ -46,13 +46,13 @@ function LeftPanel() {
     </div>
     <div className="tab-content">
       {activeTab === 'Tab1' && <div>
-        {scenes.map((scene: any) => (
-          <p key={scene.text}>{scene.text}</p>
+        {scenes.map((scene: any,index: any) => (
+          <p key={'scn_'+index}>{scene.text}</p>
         ))}
         </div>} 
       {activeTab === 'Tab2' && <div>
-        {characters.map((char: any) => (
-          <p key={char.text}>{char.text}</p>
+        {characters.map((char: any,index: any) => (
+          <p key={'char_'+index}>{char.text}</p>
         ))}
         </div>}
       {activeTab === 'Tab3' && <div>Update Soon...!</div>}

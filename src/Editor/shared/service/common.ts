@@ -29,7 +29,9 @@ export function processCharacter(json: any) {
     json.forEach((item: any) => {
       if (item.type.trim() === "character") { 
         let text=item.text.replace("&nbsp;", "");
-        charList.push({text:text,type:item.type});
+        if(!charList.find((f:any)=>f.text==text)){
+          charList.push({text:text,type:item.type});
+        }
       }
     });
   }
